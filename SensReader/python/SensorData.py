@@ -85,8 +85,10 @@ class SensorData:
       if image_size is not None:
         depth = cv2.resize(depth, (image_size[1], image_size[0]), interpolation=cv2.INTER_NEAREST)
       #imageio.imwrite(os.path.join(output_path, str(f) + '.png'), depth)
+
       with open(os.path.join(output_path, str(f) + '.png'), 'wb') as f: # write 16-bit
-        writer = png.Writer(width=depth.shape[1], height=depth.shape[0], bitdepth=16)
+        # writer = png.Writer(width=depth.shape[1], height=depth.shape[0], bitdepth=16)
+        writer = png.Writer(width=depth.shape[1], height=depth.shape[0], greyscale=True, bitdepth=16)
         depth = depth.reshape(-1, depth.shape[1]).tolist()
         writer.write(f, depth)
 
